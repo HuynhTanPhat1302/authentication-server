@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Authentication_Authorization_1._0.Models;
 using Authentication_Authorization_1._0.Helpers;
+using Authentication_Authorization_1._0.ApiModels;
 
 [Route("api/auth")]
 [ApiController]
@@ -81,7 +80,7 @@ public class AuthController : ControllerBase
         // Read configuration values
         var secretKey = _configuration["Jwt:SecretKey"];
 
-        
+
 
         // Create the claims for the token
         var claims = new[]
@@ -103,6 +102,56 @@ public class AuthController : ControllerBase
 
         return tokenString;
     }
+
+
+    [HttpPost("create-account")]
+    [AllowAnonymous]
+    public IActionResult CreateAccount(RegisterRequestModel model)
+    {
+        // Validate the registration data
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Check if the email already exists in the database
+        if (!string.IsNullOrEmpty(model.Email))
+        {
+            if (EmailExists(model.Email))
+            {
+                return Conflict("Email already exists");
+            }
+        }
+
+
+       
+        if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)) {
+            return BadRequest();
+        }
+         // Create a new user object
+        var user = new User
+        {
+            Email = model.Email,
+            Password = model.Password,
+            RoleID = model.RoleID, // Set the user's role ID based on the registration data
+            CreatedAt = model.CreatedAt,
+        };
+
+        // Save the new user to the database
+        _context.Users.Add(user);
+        _context.SaveChanges();
+
+        
+
+        // Return the token as a response
+        return Ok();
+    }
+
+    private bool EmailExists(string email)
+    {
+        return _context.Users.Any(u => u.Email == email);
+    }
+
 
 }
 
