@@ -124,11 +124,15 @@ public class AuthController : ControllerBase
         }
 
 
-       
-        if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password)) {
+
+
+
+
+        if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+        {
             return BadRequest();
         }
-         // Create a new user object
+        // Create a new user object
         var user = new User
         {
             Email = model.Email,
@@ -141,11 +145,52 @@ public class AuthController : ControllerBase
         _context.Users.Add(user);
         _context.SaveChanges();
 
-        
+
 
         // Return the token as a response
         return Ok();
     }
+
+    [HttpPut("update-account/{email}")]
+    [AllowAnonymous]
+    public IActionResult UpdateAccount(string email, UpdateAccountRequestModel model)
+    {
+        // Validate the email and model
+        if (string.IsNullOrEmpty(email))
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Check if the email exists in the database
+        var existingUser = _context.Users.FirstOrDefault(u => u.Email == email);
+        if (existingUser == null)
+        {
+            return NotFound();
+        }
+
+        // Update the user properties based on the model, only if they are provided
+        if (!string.IsNullOrEmpty(model.Password))
+        {
+            existingUser.Password = model.Password;
+        }
+
+        if (!string.IsNullOrEmpty(model.Email))
+        {
+            existingUser.Email = model.Email;
+        }
+
+        if (model.RoleID.HasValue)
+        {
+            existingUser.RoleID = model.RoleID.Value;
+        }
+
+
+        // Save the changes to the database
+        _context.SaveChanges();
+
+        return NoContent();
+    }
+
 
     private bool EmailExists(string email)
     {
