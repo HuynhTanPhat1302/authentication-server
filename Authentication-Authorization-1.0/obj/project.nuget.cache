@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5qeTEj1tPGrtHANZZTmcLIHzuNkS1vHI8W+JqpvQrTkOwrA6J+IijzfehKsMxMDEwdgkN344FAdw9OokmBXTVQ==",
+  "dgSpecHash": "huT+hTaenjeC5lVnd+v3uI9Xd8P6K1gQVmXnlAlVZaYfgMeqZ+w0hVEigvbsmY2/yQUPFheiKuDotlquiEsBIA==",
   "success": true,
   "projectFilePath": "D:\\learn-space\\c#\\Authentication-Authorization-1.0\\Authentication-Authorization-1.0\\Authentication-Authorization-1.0.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "C:\\Users\\BongU\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
     "C:\\Users\\BongU\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\BongU\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\BongU\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\BongU\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\BongU\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\BongU\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",

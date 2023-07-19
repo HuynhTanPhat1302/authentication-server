@@ -16,6 +16,7 @@ var configuration = new ConfigurationBuilder()
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
 // Add DbContext to the container
 builder.Services.AddDbContext<DataContext>(options =>
@@ -41,22 +42,15 @@ builder.Services.AddDbContext<DataContext>(options =>
 //builder.Services.AddAuthorization();
 
 // Configure Swagger
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
-});
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
-    });
-}
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.MapGet("/secretkey", () =>
 {
@@ -64,10 +58,11 @@ app.MapGet("/secretkey", () =>
     return Results.Ok(secretKey);
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 //app.UseAuthentication();
 //app.UseAuthorization();
+
 
 app.MapControllers();
 
